@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Generate10InteractionsForUser.ps1" />
+    <None Remove="Generate10InteractionsForUser1234.ps1" />
+    <None Remove="GenerateLeastValuableUser.ps1" />
+    <None Remove="GenerateMostValuableUser.ps1" />
+    <None Remove="InitialImport.ps1" />
+    <None Remove="interactions.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Generate10InteractionsForUser1234.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GenerateLeastValuableUser.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Generate10InteractionsForUser.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GenerateMostValuableUser.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InitialImport.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="interactions.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.4.3" />
+    <PackageReference Include="CsvHelper" Version="12.1.2" />
+    <PackageReference Include="Sitecore.UniversalTracker.MobileSDK" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
