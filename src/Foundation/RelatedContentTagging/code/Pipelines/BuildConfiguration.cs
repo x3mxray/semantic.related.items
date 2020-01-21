@@ -1,25 +1,20 @@
-﻿using Sitecore.ContentTagging.Configuration;
-using Sitecore.ContentTagging.Pipelines.GetTaggingConfiguration;
+﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines
 {
     public class BuildConfiguration
     {
-        /// <summary>Item Content Tagging ProviderSet Builder</summary>
-        protected IItemContentTaggingProviderSetBuilder TaggingProviderSetBuilder;
+        protected IRelatedItemContentTaggingProviderSetBuilder TaggingProviderSetBuilder;
 
-        /// <summary>Constructor</summary>
-        /// <param name="taggingProviderSetBuilder">Item Tagging ProviderSet Builder</param>
-        public BuildConfiguration(IItemContentTaggingProviderSetBuilder taggingProviderSetBuilder)
+        public BuildConfiguration(IRelatedItemContentTaggingProviderSetBuilder taggingProviderSetBuilder)
         {
-            this.TaggingProviderSetBuilder = taggingProviderSetBuilder;
+            TaggingProviderSetBuilder = taggingProviderSetBuilder;
         }
 
-        /// <summary>Pipeline processor entry point</summary>
-        /// <param name="args"></param>
-        public void Process(GetTaggingConfigurationArgs args)
+        public void Process(GetRelatedContentTaggingConfigurationArgs args)
         {
-            args.ProvidersSet = this.TaggingProviderSetBuilder.Build(args.ConfigurationName);
+            args.ProvidersSet = TaggingProviderSetBuilder.Build(args.ConfigurationName);
         }
     }
 }

@@ -2,8 +2,6 @@
 using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
 using Sitecore.Abstractions;
 using Sitecore.ContentTagging.Core.Messaging;
-using Sitecore.ContentTagging.Pipelines.GetTaggingConfiguration;
-using Sitecore.ContentTagging.Pipelines.TagContent;
 using Sitecore.Data.Items;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
@@ -21,7 +19,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
         {
             string pipelineDomain = "RealtedContentTagging";
 
-            GetTaggingConfigurationArgs configurationArgs = new GetTaggingConfigurationArgs
+            var configurationArgs = new GetRelatedContentTaggingConfigurationArgs
             {
                 MessageBus = messageBus
             };
@@ -34,9 +32,9 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
                 {
                     ContentProviders = configurationArgs.ProvidersSet.ContentProviders,
                     Taggers = configurationArgs.ProvidersSet.Taggers,
-                    //DiscoveryProviders = configurationArgs.ProvidersSet.DiscoveryProviders,
+                    DiscoveryProviders = configurationArgs.ProvidersSet.DiscoveryProviders,
 
-                },//(configurationArgs.ProvidersSet),
+                },
                 ContentItem = contentItem,
                 MessageBus = messageBus
             };

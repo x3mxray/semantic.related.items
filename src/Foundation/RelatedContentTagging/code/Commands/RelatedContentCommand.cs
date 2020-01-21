@@ -6,7 +6,6 @@ using Sitecore.Data.Items;
 using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
 using Sitecore.Globalization;
-using Sitecore.Security.Accounts;
 using Sitecore.SecurityModel;
 using Sitecore.Shell.Applications.Dialogs.ProgressBoxes;
 using Sitecore.Shell.Framework.Commands;
@@ -17,6 +16,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Extentions;
 using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
 using Sitecore;
 using Sitecore.ContentTagging;
@@ -65,14 +65,15 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
             }
             string str2 = str1;
             bool flag = str2 != null && bool.Parse(str2);
-            List<Item> source = new List<Item>();
+            var source = new List<Item>();
             if (flag)
             {
-                Item[] descendants = obj.Axes.GetDescendants();
-                source.Add(obj);
+                var descendants = obj.Axes.GetDescendants().Where(x => x.IsDerived(Constants.Templates.ReletedContentTagging));
+                if(obj.IsDerived(Constants.Templates.ReletedContentTagging))
+                    source.Add(obj);
                 source.AddRange(descendants);
             }
-            else
+            else if (obj.IsDerived(Constants.Templates.ReletedContentTagging))
                 source.Add(obj);
             if (!source.Any())
                 return;
@@ -80,10 +81,12 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
             JobContextMessageHandler contextMessageHandler = new JobContextMessageHandler();
             messageBus.Subscribe(contextMessageHandler);
             ClientPipelineArgs args = new ClientPipelineArgs();
-            args.CustomData["items"] = (object)source;
-            args.CustomData["messageBus"] = (object)messageBus;
-            Context.ClientPage.Start((object)this, "Run", args);
+            args.CustomData["items"] = source;
+            args.CustomData["messageBus"] = messageBus;
+            Context.ClientPage.Start(this, "Run", args);
         }
+
+       
 
         /// <summary>Runs the command in ProgressBox.</summary>
         /// <param name="args">The args.</param>
@@ -120,13 +123,13 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
                         }
                         else
                         {
-                            string str = Translate.Text("Item '{0}' was not vectorized. User doesn't have write access to it.", (object)contentItem.Paths.Path);
+                            string str = Translate.Text("Item '{0}' was not tagging. User doesn't have write access to it.", (object)contentItem.Paths.Path);
                             messageBus.SendMessage(new Message
                             {
                                 Body = str,
                                 Level = MessageLevel.Warning
                             });
-                            Log.Warn(string.Format(CultureInfo.InvariantCulture, "Item '{0}' was not vectorized. User doesn't have write access to it.", contentItem.Paths.Path), this);
+                            Log.Warn(string.Format(CultureInfo.InvariantCulture, "Item '{0}' was not tagging. User doesn't have write access to it.", contentItem.Paths.Path), this);
                         }
                     }
                 }
@@ -144,7 +147,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
             Func<Message, bool> predicate1 = Func1;
             if (receivedMessages1.Any(predicate1))
             {
-                SheerResponse.ShowError(Translate.Text("Error"), Translate.Text("There was an error during vectorizing. Ask your system administrator for more information."));
+                SheerResponse.ShowError(Translate.Text("Error"), Translate.Text("There was an error during tagging. Ask your system administrator for more information."));
             }
             else
             {
@@ -153,7 +156,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
                 Func<Message, bool> predicate2=Func2;
                 if (!receivedMessages2.Any(predicate2))
                     return;
-                SheerResponse.Alert(Translate.Text("There were warnings during vectorizing. Ask your system administrator for more information."), Array.Empty<string>());
+                SheerResponse.Alert(Translate.Text("There were warnings during tagging. Ask your system administrator for more information."), Array.Empty<string>());
             }
         }
     }

@@ -1,12 +1,19 @@
 ﻿using System.Linq;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+using Microsoft.Extensions.DependencyInjection;
+using Sitecore.Abstractions;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.ComputedFields;
+using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Data.Items;
+using Sitecore.DependencyInjection;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
 {
     public class Vector : IComputedIndexField
     {
+
         public object ComputeFieldValue(IIndexable indexable)
         {
             var item = (Item)(indexable as SitecoreIndexableItem);
@@ -16,9 +23,40 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
                 return null;
             }
 
-            var fakeData = new double[] {0.111, 0.222, 0.333};
+            var vector = GetItemVector(item);
 
-            return fakeData.ToList();
+            return vector;
+        }
+
+        public double[] GetItemVector(Item item)
+        {
+            var messageBusFactory = ServiceLocator.ServiceProvider.GetService<IMessageBusFactory>();
+            var messageBus = messageBusFactory.Create();
+            BaseCorePipelineManager PipelineManager = ServiceLocator.ServiceProvider.GetService<BaseCorePipelineManager>(); ;
+            string pipelineDomain = "RealtedContentTagging";
+
+            var configurationArgs = new GetRelatedContentTaggingConfigurationArgs
+            {
+                MessageBus = messageBus
+            };
+            PipelineManager.Run("getRelatedTaggingConfiguration", configurationArgs, pipelineDomain);
+            BaseCorePipelineManager pipelineManager = PipelineManager;
+            var tagContentArgs = new RelatedContentTagArgs
+            {
+                Configuration = new RelatedItemContentTaggingProvidersSet
+                {
+                    ContentProviders = configurationArgs.ProvidersSet.ContentProviders,
+                    Taggers = configurationArgs.ProvidersSet.Taggers,
+                    DiscoveryProviders = configurationArgs.ProvidersSet.DiscoveryProviders,
+
+                },
+                ContentItem = item,
+                MessageBus = messageBus
+            };
+
+            pipelineManager.Run("getContent", tagContentArgs, pipelineDomain);
+            var content =tagContentArgs.Content.First();
+            return content.Vector;
         }
 
         public string FieldName { get; set; }

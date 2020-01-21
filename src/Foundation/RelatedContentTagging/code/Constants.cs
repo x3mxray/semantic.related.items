@@ -1,21 +1,17 @@
-﻿namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging
+﻿using Sitecore.Data;
+
+namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging
 {
     public static class Constants
     {
-        public static class DemoGoal
+        public static class Templates
         {
-            public const string ProjectionTableName = "DemoGoal";
-            public const string ProjectionResultTableName = "DemoGoalResultTable";
-            public const string ProjectionKey = "ID";
-            public const string ProjectionEngagementValue = "EngagementValue";
-            public const string ProjectionTimestamp = "Timestamp";
-
-            public const string ProjectionContactTableName = "DemoContact";
-            public const string ProjectionContactResultTableName = "DemoContactResultTable";
-
-            public const string CustomerIdKey = "CustomerId";
-            public const string CustomerIdKeyValue = "customerid";
+            public static ID ReletedContentTagging = new ID("{2F81EE63-9217-4E81-B2C0-8B831B193068}");
         }
 
+        public static class Fields
+        {
+            public static ID RetatedTemplates = new ID("{41BA1037-FF08-420B-9E18-E3A17833C64D}");
+        }
     }
 }

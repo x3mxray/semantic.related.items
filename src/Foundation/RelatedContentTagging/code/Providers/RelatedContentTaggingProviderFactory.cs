@@ -1,22 +1,50 @@
-﻿using Sitecore.ContentTagging.Core.Configuration;
-using Sitecore.ContentTagging.Core.Factories;
+﻿using System;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
+using Sitecore.ContentTagging.Core.Providers;
+using Sitecore.Reflection;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
 {
-    public class RelatedContentTaggingProviderFactory : ContentTaggingProviderFactory, IRelatedContentTaggingProviderFactory
+    public class RelatedContentTaggingProviderFactory :  IRelatedContentTaggingProviderFactory
     {
-        public RelatedContentTaggingProviderFactory(IContentTaggingProvidersConfigurationService contentTaggingProvidersConfigurationService) : base(contentTaggingProvidersConfigurationService)
+        protected IRelatedContentTaggingProvidersConfigurationService ContentTaggingProvidersConfigurationService;
+
+        public RelatedContentTaggingProviderFactory(IRelatedContentTaggingProvidersConfigurationService configurationService)
         {
+            this.ContentTaggingProvidersConfigurationService = configurationService;
         }
 
-        public IRelatedItemsDiscoveryProvider CreateRelatedItemsDiscoveryProvider(string providerName)
+        public IContentProvider<T> CreateContentProvider<T>(string providerName)
         {
-            return this.GetProvider<IRelatedItemsDiscoveryProvider>(providerName);
+            return this.GetProvider<IContentProvider<T>>(providerName);
+        }
+
+        public IRelatedItemsDiscoveryProvider CreateDiscoveryProvider(string providerName)
+        {
+            return GetProvider<IRelatedItemsDiscoveryProvider>(providerName);
+        }
+
+
+        public ITagger<T> CreateTagger<T>(string providerName)
+        {
+            return this.GetProvider<ITagger<T>>(providerName);
+        }
+
+        protected virtual T GetProvider<T>(string providerName)
+        {
+            Type providerTypeByName = this.ContentTaggingProvidersConfigurationService.GetProviderTypeByName(providerName);
+            if (providerTypeByName != (Type)null)
+                return (T)ReflectionUtil.CreateObject(providerTypeByName);
+            return default(T);
         }
     }
 
-    public interface IRelatedContentTaggingProviderFactory : IContentTaggingProviderFactory
+    public interface IRelatedContentTaggingProviderFactory
     {
-        IRelatedItemsDiscoveryProvider CreateRelatedItemsDiscoveryProvider(string providerName);
+        IContentProvider<T> CreateContentProvider<T>(string providerName);
+
+        IRelatedItemsDiscoveryProvider CreateDiscoveryProvider(string providerName);
+
+        ITagger<T> CreateTagger<T>(string providerName);
     }
 }

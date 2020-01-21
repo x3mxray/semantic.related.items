@@ -1,11 +1,9 @@
-﻿using System;
-using Sitecore.ContentTagging.Core.Models;
+﻿using Sitecore.ContentTagging.Core.Models;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models
 {
-    public class RelatedTaggableContent : TaggableContent
+    public class RelatedTaggableContent : StringContent
     {
-        public Guid Id { get; set; }
-        public string Content { get; set; }
+        public double[] Vector { get; set; }
     }
 }

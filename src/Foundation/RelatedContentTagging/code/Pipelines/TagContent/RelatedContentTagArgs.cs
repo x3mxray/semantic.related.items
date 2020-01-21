@@ -1,9 +1,9 @@
 ﻿using System;
 using Sitecore.ContentTagging.Core.Messaging;
-using Sitecore.ContentTagging.Core.Models;
 using Sitecore.Data.Items;
 using Sitecore.Pipelines;
 using System.Collections.Generic;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
 using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
@@ -19,9 +19,9 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
         public RelatedItemContentTaggingProvidersSet Configuration { get; set; }
 
         /// <summary>Taggable content</summary>
-        public IEnumerable<TaggableContent> Content { get; set; }
+        public IEnumerable<RelatedTaggableContent> Content { get; set; }
 
         /// <summary>Related items collection</summary>
-        public IEnumerable<Guid> Tags { get; set; }
+        public IEnumerable<Guid> RelatedItems { get; set; }
     }
 }

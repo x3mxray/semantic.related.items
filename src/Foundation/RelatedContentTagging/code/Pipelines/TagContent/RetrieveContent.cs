@@ -2,6 +2,7 @@
 using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Data.Items;
 using System.Collections.Generic;
+using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -9,11 +10,14 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
     {
         public void Process(RelatedContentTagArgs args)
         {
-            List<TaggableContent> taggableContentList = new List<TaggableContent>();
+            var taggableContentList = new List<RelatedTaggableContent>();
             foreach (IContentProvider<Item> contentProvider in args.Configuration.ContentProviders)
             {
                 TaggableContent content = contentProvider.GetContent(args.ContentItem);
-                taggableContentList.Add(content);
+                taggableContentList.Add(new RelatedTaggableContent
+                {
+                    Content = ((StringContent)content).Content
+                });
             }
             args.Content = taggableContentList;
         }
