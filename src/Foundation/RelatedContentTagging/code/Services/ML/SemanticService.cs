@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hackathon.Boilerplate.Foundation.ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,8 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
     {
         public double[] Vectorize(string content)
         {
-            return new double[] {0.111, 0.222, 0.333};
+            var vector = Content2Vec.Vectorization(content);
+            return vector;
         }
 
         public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates)

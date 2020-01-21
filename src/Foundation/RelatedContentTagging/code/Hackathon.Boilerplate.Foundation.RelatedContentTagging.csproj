@@ -157,7 +157,12 @@
     <Compile Include="Services\RelatedContentTaggingRunner.cs" />
     <Compile Include="Services\RelatedItemContentTaggingProviderSetBuilder.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\ML\code\Hackathon.Boilerplate.Foundation.ML.csproj">
+      <Project>{36139d26-3cc1-459d-8659-c958789dcd87}</Project>
+      <Name>Hackathon.Boilerplate.Foundation.ML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Sitecore.ContentTagging">
       <Version>9.3.0</Version>
