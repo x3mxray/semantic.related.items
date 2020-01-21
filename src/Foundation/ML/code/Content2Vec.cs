@@ -76,21 +76,21 @@ namespace Hackathon.Boilerplate.Foundation.ML
             return calculatedVectors.OrderBy(x => x.Distance).Take(5);
         }
 
-        static double CosineDistance(double[] x, double[] y)
+        static float CosineDistance(float[] x, float[] y)
         {
-            double num1 = 0.0;
-            double d1 = 0.0;
-            double d2 = 0.0;
+            float num1 = 0;
+            float d1 = 0;
+            float d2 = 0;
             for (int index = 0; index < x.Length; ++index)
             {
                 num1 += x[index] * y[index];
                 d1 += x[index] * x[index];
                 d2 += y[index] * y[index];
             }
-            double num2 = Math.Sqrt(d1) * Math.Sqrt(d2);
-            if (num1 != 0.0)
-                return 1.0 - num1 / num2;
-            return 1.0;
+            float num2 = (float)Math.Sqrt(d1) * (float)Math.Sqrt(d2);
+            if (num1 != 0)
+                return 1 - num1 / num2;
+            return 1;
         }
     }
 }
