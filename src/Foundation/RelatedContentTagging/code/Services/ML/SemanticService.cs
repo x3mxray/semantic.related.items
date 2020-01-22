@@ -5,8 +5,17 @@ using System.Linq;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 {
+    using Searcher;
+
     public class SemanticService : ISemanticService
     {
+        protected IRelatedContentSearcher contentSearcher;
+
+        public SemanticService(IRelatedContentSearcher contentSearcher)
+        {
+            this.contentSearcher = contentSearcher;
+        }
+
         public double[] Vectorize(string content)
         {
             var vector = Content2Vec.Vectorization(content);
@@ -15,8 +24,8 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 
         public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates)
         {
-            var current = GetCurrentItemFromSolr(itemId);
-            var list = GetAllFromSolr(relatedTemplates);
+            var current = this.contentSearcher.GetCurrentItemFromSolr(itemId);
+            var list = this.contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
 
             var related = Nearest(current, list);
 
