@@ -6,8 +6,8 @@ namespace Hackathon.Boilerplate.Foundation.ML
     {
         public Guid Id { get; set; }
         public string Text { get; set; }
-        public double[] TextVector { get; set; }
-        public double Distance { get; set; }
+        public float[] TextVector { get; set; }
+        public float Distance { get; set; }
         public string[] Tags { get; set; }
     }
 }
