@@ -71,6 +71,18 @@ namespace Hackathon.Boilerplate.Foundation.ML
             return calculatedVectors.OrderBy(x => x.Distance).Take(5);
         }
 
+        public static IEnumerable<Guid> NearestItems(float[] primaryVector, List<ContentObject> other)
+        {
+            List<ContentObject> calculatedVectors = new List<ContentObject>();
+            foreach (var o in other)
+            {
+                o.Distance = CosineDistance(primaryVector, o.TextVector);
+                calculatedVectors.Add(o);
+            }
+
+            return calculatedVectors.OrderBy(x => x.Distance).Take(5).Select(x => x.Id);
+        }
+
         static float CosineDistance(float[] x, float[] y)
         {
             float num1 = 0;

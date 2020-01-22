@@ -2,15 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sitecore.Buckets.Extensions;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 {
+    using Searcher;
+
     public class SemanticService : ISemanticService
     {
-        public SemanticService()
+        protected IRelatedContentSearcher contentSearcher;
+
+        public SemanticService(IRelatedContentSearcher contentSearcher)
         {
+            this.contentSearcher = contentSearcher;
             Content2Vec.InitDataset(Sitecore.Configuration.Settings.GetSetting("SemanticDatasetFilePath"));
         }
+
         public float[] Vectorize(string content)
         {
             var vector = Content2Vec.Vectorization(content);
@@ -19,31 +26,11 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 
         public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates)
         {
-            var current = GetCurrentItemFromSolr(itemId);
-            var list = GetAllFromSolr(relatedTemplates);
-
-            var related = Nearest(current, list);
+            var current = this.contentSearcher.GetCurrentItemFromSolr(itemId);
+            var list = this.contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
+            var related = Content2Vec.NearestItems(current.TextVector, list.Where(x => x.Id!=itemId).ToList());
 
             return related;
-        }
-
-        IEnumerable<Guid> Nearest(object currentItem, IEnumerable<object> list)
-        {
-            // TODO: implement
-            return Enumerable.Empty<Guid>();
-        }
-
-
-        object GetCurrentItemFromSolr(Guid item)
-        {
-            // TODO: request to Sorl
-            return new object();
-        }
-
-        IEnumerable<object> GetAllFromSolr(IEnumerable<Guid> relatedTemplates)
-        {
-            // TODO: request to Sorl
-            return Enumerable.Empty<object>();
         }
     }
 

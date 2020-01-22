@@ -151,6 +151,10 @@
     <Compile Include="Providers\RelatedItemsDiscoveryProvider.cs" />
     <Compile Include="Providers\RelatedContentTaggingProviderFactory.cs" />
     <Compile Include="Providers\RelatedItemContentTaggingProvidersSet.cs" />
+    <Compile Include="Providers\RelatedItemsTagger.cs" />
+    <Compile Include="Searcher\IRelatedContentSearcher.cs" />
+    <Compile Include="Searcher\RelatedContentSearcher.cs" />
+    <Compile Include="Searcher\SearchResultItem\ItemWIthVectorResultItem.cs" />
     <Compile Include="Services\ML\SemanticService.cs" />
     <Compile Include="Services\RelatedContentTaggingProvidersConfigurationService.cs" />
     <Compile Include="Services\RelatedItemContentTaggingConfigurationService.cs" />
@@ -169,7 +173,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\Foundation\Foundation.RelatedContentTagging.Indexing.config" />
+    <Content Include="App_Config\Include\Foundation\Foundation.RelatedContentTagging.Indexing.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

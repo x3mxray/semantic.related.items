@@ -10,7 +10,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
 
         public IEnumerable<IRelatedItemsDiscoveryProvider> DiscoveryProviders { get; set; }
 
-        public IEnumerable<ITagger<Item>> Taggers { get; set; }
+        public IEnumerable<IRelatedItemsTagger<Item>> Taggers { get; set; }
 
     }
 }

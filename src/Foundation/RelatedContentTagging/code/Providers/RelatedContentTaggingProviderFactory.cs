@@ -25,9 +25,9 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
         }
 
 
-        public ITagger<T> CreateTagger<T>(string providerName)
+        public IRelatedItemsTagger<T> CreateTagger<T>(string providerName)
         {
-            return this.GetProvider<ITagger<T>>(providerName);
+            return this.GetProvider<IRelatedItemsTagger<T>>(providerName);
         }
 
         protected virtual T GetProvider<T>(string providerName)
@@ -45,6 +45,6 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
 
         IRelatedItemsDiscoveryProvider CreateDiscoveryProvider(string providerName);
 
-        ITagger<T> CreateTagger<T>(string providerName);
+        IRelatedItemsTagger<T> CreateTagger<T>(string providerName);
     }
 }
