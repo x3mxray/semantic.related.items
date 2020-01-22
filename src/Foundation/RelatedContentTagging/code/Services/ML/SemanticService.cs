@@ -7,7 +7,11 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 {
     public class SemanticService : ISemanticService
     {
-        public double[] Vectorize(string content)
+        public SemanticService()
+        {
+            Content2Vec.InitDataset(Sitecore.Configuration.Settings.GetSetting("SemanticDatasetFilePath"));
+        }
+        public float[] Vectorize(string content)
         {
             var vector = Content2Vec.Vectorization(content);
             return vector;
@@ -45,7 +49,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 
     public interface ISemanticService
     {
-        double[] Vectorize(string content);
+        float[] Vectorize(string content);
         IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates);
     }
 }

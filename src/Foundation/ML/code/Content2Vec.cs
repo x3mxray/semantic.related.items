@@ -9,43 +9,38 @@ namespace Hackathon.Boilerplate.Foundation.ML
 {
     public static class Content2Vec
     {
-        private static readonly string fileName = "GoogleNews.bin";
-        static Vocabulary VocabularyModel { get; }
 
-        static Content2Vec()
+        static Vocabulary VocabularyModel { get; set; }
+
+        public static void InitDataset(string datasetPath)
         {
-            if (VocabularyModel == null)
-            {
-                var path=  HostingEnvironment.ApplicationPhysicalPath + "App_Data\\"+fileName;
-                if (string.IsNullOrEmpty(fileName))
-                    throw new ArgumentNullException(nameof(fileName));
-
-                if (!File.Exists(path))
-                    throw new FileNotFoundException("Bin file is not found", path);
-
-                VocabularyModel = new Word2VecBinaryReader().Read(path);
-            }
+            if (string.IsNullOrEmpty(datasetPath))
+                throw new ArgumentNullException(nameof(datasetPath));
+            var path = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, datasetPath);
+            if (!File.Exists(path))
+                throw new FileNotFoundException("Dataset bin file is not found", path);
+            VocabularyModel = new Word2VecBinaryReader().Read(path);
         }
 
-        public static double[] Vectorization(string content)
+        public static float[] Vectorization(string content)
         {
             var words = TextHelper.GetWords(content);
-            var vector = new double[VocabularyModel.VectorDimensionsCount];
+            var vector = new float[VocabularyModel.VectorDimensionsCount];
 
             int inVocabularyCount = 0;
-            List<Tuple<string, double>> dic = new List<Tuple<string, double>>();
+           // var dic = new List<Tuple<string, float>>();
 
             foreach (string word in words)
             {
                 try
                 {
                     float[] wordVector = VocabularyModel.GetRepresentationFor(word).NumericVector;
-                    double metric = VocabularyModel.GetRepresentationFor(word).MetricLength;
-                    dic.Add(new Tuple<string, double>(word, metric));
+                  //  float metric = (float)VocabularyModel.GetRepresentationFor(word).MetricLength;
+                   // dic.Add(new Tuple<string, float>(word, metric));
 
                     for (int i = 0; i < VocabularyModel.VectorDimensionsCount; i++)
                     {
-                        vector[i] += (double)wordVector[i];
+                        vector[i] += wordVector[i];
                     }
                     inVocabularyCount++;
                 }

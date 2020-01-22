@@ -28,7 +28,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
             return vector;
         }
 
-        public double[] GetItemVector(Item item)
+        public float[] GetItemVector(Item item)
         {
             var messageBusFactory = ServiceLocator.ServiceProvider.GetService<IMessageBusFactory>();
             var messageBus = messageBusFactory.Create();

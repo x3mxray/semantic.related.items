@@ -26,7 +26,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
             return _semanticService.GetRelated(itemId, relatedTemplates);
         }
 
-        public double[] GetVector(RelatedTaggableContent content)
+        public float[] GetVector(RelatedTaggableContent content)
         {
             return _semanticService.Vectorize(content.Content);
         }
@@ -35,6 +35,6 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
     public interface IRelatedItemsDiscoveryProvider
     {
         IEnumerable<Guid> GetRelatedItems(Guid itemId, IEnumerable<Guid> relatedTemplates);
-        double[] GetVector(RelatedTaggableContent content);
+        float[] GetVector(RelatedTaggableContent content);
     }
 }
