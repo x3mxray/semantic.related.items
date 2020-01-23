@@ -3,6 +3,7 @@ using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Data.Items;
 using System.Collections.Generic;
 using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
+using Sitecore.ContentTagging.Core.Messaging;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -23,7 +24,20 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
                     });
                 }
             }
-            args.Content = taggableContentList;
+
+            if (taggableContentList.Count == 0)
+            {
+                MessageBus messageBus = args.MessageBus;
+                if (messageBus != null)
+                    messageBus.SendMessage(new Message
+                    {
+                        Body = $"Item {args.ContentItem.Name} contains no content.",
+                        Level = MessageLevel.Info
+                    });
+                args.AbortPipeline();
+            }
+            else
+                args.Content = taggableContentList;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Searcher
                     .Select(x => new {x.ItemId, x.Vectors})
                     .GetResults()?.FirstOrDefault()?.Document;
                     
-                return result==null ? null : new ContentObject{Id = result.ItemId.Guid, TextVector = result.Vectors.ToArray()} ;
+                return result==null ? null : new ContentObject{Id = result.ItemId.Guid, TextVector = result.Vectors?.ToArray()} ;
             }
         }
 

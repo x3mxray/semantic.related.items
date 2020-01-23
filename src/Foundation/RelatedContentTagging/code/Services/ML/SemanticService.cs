@@ -26,8 +26,18 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
 
         public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates)
         {
+            if (relatedTemplates == null || !relatedTemplates.Any())
+                return null;
+
             var current = this.contentSearcher.GetCurrentItemFromSolr(itemId);
+            if (current.TextVector == null)
+                return null;
+
             var list = this.contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
+
+            if (list == null || !list.Any())
+                return null;
+
             var related = Content2Vec.NearestItems(current.TextVector, list.Where(x => x.Id!=itemId).ToList());
 
             return related;

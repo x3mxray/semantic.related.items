@@ -19,7 +19,21 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
                 var relatedTemplatesIds = relatedTemplates.TargetIDs.Select(x => x.Guid);
 
                 IEnumerable<Guid> tags = discoveryProvider.GetRelatedItems(args.ContentItem.ID.Guid, relatedTemplatesIds);
-                relatedItemsList.AddRange(tags);
+
+                if (tags == null || !tags.Any())
+                {
+                    var message = $"No related items find for {args.ContentItem.Name}";
+                    MessageBus messageBus = args.MessageBus;
+                    messageBus?.SendMessage(new Message
+                    {
+                        Body = message,
+                        Level = MessageLevel.Info
+                    });
+                    Log.Warn(message, this);
+                    args.AbortPipeline();
+                }
+                else 
+                    relatedItemsList.AddRange(tags);
             }
             catch (Exception ex)
             {

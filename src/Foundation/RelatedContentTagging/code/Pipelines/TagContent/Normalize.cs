@@ -4,6 +4,7 @@ using Sitecore.Abstractions;
 using Sitecore.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Sitecore.ContentTagging.Core.Messaging;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -27,7 +28,19 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
                 list.Add(new RelatedTaggableContent { Content = content.Content });
             }
 
-            args.Content = list;
+            if (list.Count == 0)
+            {
+                MessageBus messageBus = args.MessageBus;
+                if (messageBus != null)
+                    messageBus.SendMessage(new Message
+                    {
+                        Body = $"Item {args.ContentItem.Name} contains no content.",
+                        Level = MessageLevel.Info
+                    });
+                args.AbortPipeline();
+            }
+            else
+                args.Content = list;
         }
     }
 }
