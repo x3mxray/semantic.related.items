@@ -13,7 +13,6 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
 {
     public class Vector : IComputedIndexField
     {
-
         public object ComputeFieldValue(IIndexable indexable)
         {
             var item = (Item)(indexable as SitecoreIndexableItem);
@@ -55,8 +54,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
             };
 
             pipelineManager.Run("getContent", tagContentArgs, pipelineDomain);
-            var content =tagContentArgs.Content.First();
-            return content.Vector;
+            return tagContentArgs.Vector;
         }
 
         public string FieldName { get; set; }

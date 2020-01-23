@@ -4,6 +4,6 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models
 {
     public class RelatedTaggableContent : StringContent
     {
-        public float[] Vector { get; set; }
+       // public string Content { get; set; }
     }
 }

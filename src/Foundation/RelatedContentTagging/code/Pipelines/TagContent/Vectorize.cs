@@ -2,6 +2,7 @@
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Diagnostics;
 using System;
+using System.Linq;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -12,11 +13,8 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
             IRelatedItemsDiscoveryProvider discoveryProvider = args.Configuration.DiscoveryProvider;
             try
             {
-                foreach (var content in args.Content)
-                {
-                    content.Vector = discoveryProvider.GetVector(content);
-                }
-
+                var content = string.Join(" ", args.Content.Select(x => x.Content));
+                args.Vector = discoveryProvider.GetVector(content);
             }
             catch (Exception ex)
             {

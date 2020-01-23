@@ -21,6 +21,9 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
         /// <summary>Taggable content</summary>
         public IEnumerable<RelatedTaggableContent> Content { get; set; }
 
+        /// <summary>Content vector</summary>
+        public float[] Vector { get; set; }
+
         /// <summary>Related items collection</summary>
         public IEnumerable<Guid> RelatedItems { get; set; }
     }

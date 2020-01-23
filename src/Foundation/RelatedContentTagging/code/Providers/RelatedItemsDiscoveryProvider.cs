@@ -26,15 +26,15 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
             return _semanticService.GetRelated(itemId, relatedTemplates);
         }
 
-        public float[] GetVector(RelatedTaggableContent content)
+        public float[] GetVector(string content)
         {
-            return _semanticService.Vectorize(content.Content);
+            return _semanticService.Vectorize(content);
         }
     }
 
     public interface IRelatedItemsDiscoveryProvider
     {
         IEnumerable<Guid> GetRelatedItems(Guid itemId, IEnumerable<Guid> relatedTemplates);
-        float[] GetVector(RelatedTaggableContent content);
+        float[] GetVector(string content);
     }
 }
