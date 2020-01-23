@@ -140,6 +140,10 @@
     <Compile Include="Models\RelatedTaggableContent.cs" />
     <Compile Include="Pipelines\BuildConfiguration.cs" />
     <Compile Include="Pipelines\GetDefaultConfigurationName.cs" />
+    <Compile Include="Pipelines\NormalizeContent\NormalizeContentArgs.cs" />
+    <Compile Include="Pipelines\NormalizeContent\RemoveStopWords.cs" />
+    <Compile Include="Pipelines\NormalizeContent\StopWords.cs" />
+    <Compile Include="Pipelines\NormalizeContent\StripHtml.cs" />
     <Compile Include="Pipelines\TagContent\ApplyTags.cs" />
     <Compile Include="Pipelines\TagContent\GetRelatedItems.cs" />
     <Compile Include="Pipelines\TagContent\Normalize.cs" />

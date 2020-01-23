@@ -24,19 +24,16 @@ namespace Hackathon.Boilerplate.Foundation.ML
 
         public static float[] Vectorization(string content)
         {
-            var words = TextHelper.GetWords(content);
+            var words = content.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var vector = new float[VocabularyModel.VectorDimensionsCount];
 
             int inVocabularyCount = 0;
-           // var dic = new List<Tuple<string, float>>();
 
             foreach (string word in words)
             {
                 try
                 {
                     float[] wordVector = VocabularyModel.GetRepresentationFor(word).NumericVector;
-                  //  float metric = (float)VocabularyModel.GetRepresentationFor(word).MetricLength;
-                   // dic.Add(new Tuple<string, float>(word, metric));
 
                     for (int i = 0; i < VocabularyModel.VectorDimensionsCount; i++)
                     {

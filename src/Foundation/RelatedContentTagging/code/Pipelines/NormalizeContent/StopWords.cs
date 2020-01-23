@@ -1,4 +1,4 @@
-﻿namespace Hackathon.Boilerplate.Foundation.ML
+﻿namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
 {
     public static class StopWords
     {
@@ -75,6 +75,7 @@
             "can",
             "cannot",
             "can't",
+            "can't",
             "certain",
             "circa",
             "close",
@@ -92,6 +93,8 @@
             "daring",
             "despite",
             "did",
+            "don",
+            "dont",
             "didn't",
             "different",
             "directly",
