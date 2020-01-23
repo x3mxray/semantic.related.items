@@ -8,7 +8,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
     {
         public IEnumerable<IContentProvider<Item>> ContentProviders { get; set; }
 
-        public IEnumerable<IRelatedItemsDiscoveryProvider> DiscoveryProviders { get; set; }
+        public IRelatedItemsDiscoveryProvider DiscoveryProvider { get; set; }
 
         public IEnumerable<IRelatedItemsTagger<Item>> Taggers { get; set; }
 

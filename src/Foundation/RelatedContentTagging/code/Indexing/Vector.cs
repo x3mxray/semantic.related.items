@@ -47,7 +47,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
                 {
                     ContentProviders = configurationArgs.ProvidersSet.ContentProviders,
                     Taggers = configurationArgs.ProvidersSet.Taggers,
-                    DiscoveryProviders = configurationArgs.ProvidersSet.DiscoveryProviders,
+                    DiscoveryProvider = configurationArgs.ProvidersSet.DiscoveryProvider,
 
                 },
                 ContentItem = item,

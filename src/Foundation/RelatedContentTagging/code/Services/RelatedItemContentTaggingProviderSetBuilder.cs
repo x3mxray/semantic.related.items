@@ -24,7 +24,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
             var test= new RelatedItemContentTaggingProvidersSet
             {
                 ContentProviders = configurationByName.ContentProviders.Select(cp => this.ProvidersFactory.CreateContentProvider<Item>(cp)).Where(new Func<IContentProvider<Item>, bool>(this.NotNull<IContentProvider<Item>>)),
-                DiscoveryProviders = configurationByName.DiscoveryProviders.Select(cp => this.ProvidersFactory.CreateDiscoveryProvider(cp)).Where(new Func<IRelatedItemsDiscoveryProvider, bool>(this.NotNull<IRelatedItemsDiscoveryProvider>)),
+                DiscoveryProvider = configurationByName.DiscoveryProviders.Select(cp => this.ProvidersFactory.CreateDiscoveryProvider(cp)).Where(new Func<IRelatedItemsDiscoveryProvider, bool>(this.NotNull<IRelatedItemsDiscoveryProvider>)).FirstOrDefault(),
                 Taggers = configurationByName.Taggers.Select(cp => this.ProvidersFactory.CreateTagger<Item>(cp)).Where(new Func<IRelatedItemsTagger<Item>, bool>(this.NotNull<IRelatedItemsTagger<Item>>))
             };
             return test;

@@ -13,11 +13,15 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
             var taggableContentList = new List<RelatedTaggableContent>();
             foreach (IContentProvider<Item> contentProvider in args.Configuration.ContentProviders)
             {
-                TaggableContent content = contentProvider.GetContent(args.ContentItem);
-                taggableContentList.Add(new RelatedTaggableContent
+                var content = (StringContent) contentProvider.GetContent(args.ContentItem);
+
+                if (!string.IsNullOrEmpty(content.Content) && !string.IsNullOrEmpty(content.Content.Trim()))
                 {
-                    Content = ((StringContent)content).Content
-                });
+                    taggableContentList.Add(new RelatedTaggableContent
+                    {
+                        Content = content.Content
+                    });
+                }
             }
             args.Content = taggableContentList;
         }

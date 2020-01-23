@@ -1,7 +1,7 @@
-﻿using System;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Diagnostics;
+using System;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -9,29 +9,26 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
     {
         public void Process(RelatedContentTagArgs args)
         {
-            foreach (IRelatedItemsDiscoveryProvider discoveryProvider in args.Configuration.DiscoveryProviders)
+            IRelatedItemsDiscoveryProvider discoveryProvider = args.Configuration.DiscoveryProvider;
+            try
             {
-                try
+                foreach (var content in args.Content)
                 {
-                    foreach (var content in args.Content)
+                    content.Vector = discoveryProvider.GetVector(content);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string message = "An error occured in " + discoveryProvider.GetType().Name + " provider";
+                MessageBus messageBus = args.MessageBus;
+                if (messageBus != null)
+                    messageBus.SendMessage(new Message
                     {
-                       content.Vector = discoveryProvider.GetVector(content);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-
-                    string message = "An error occured in " + discoveryProvider.GetType().Name + " provider";
-                    MessageBus messageBus = args.MessageBus;
-                    if (messageBus != null)
-                        messageBus.SendMessage(new Message
-                        {
-                            Body = message,
-                            Level = MessageLevel.Error
-                        });
-                    Log.Error(message, ex, (object)this);
-                }
+                        Body = message,
+                        Level = MessageLevel.Error
+                    });
+                Log.Error(message, ex, (object)this);
             }
         }
     }

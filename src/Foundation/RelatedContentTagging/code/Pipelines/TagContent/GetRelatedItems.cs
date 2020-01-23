@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
@@ -12,28 +12,26 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
         public void Process(RelatedContentTagArgs args)
         {
             var relatedItemsList = new List<Guid>();
-            foreach (IRelatedItemsDiscoveryProvider discoveryProvider in args.Configuration.DiscoveryProviders)
+            IRelatedItemsDiscoveryProvider discoveryProvider = args.Configuration.DiscoveryProvider;
+            try
             {
-                try
-                {
-                    Sitecore.Data.Fields.MultilistField relatedTemplates = args.ContentItem.Fields[Constants.Fields.RetatedTemplates];
-                    var relatedTemplatesIds = relatedTemplates.TargetIDs.Select(x => x.Guid);
+                Sitecore.Data.Fields.MultilistField relatedTemplates = args.ContentItem.Fields[Constants.Fields.RetatedTemplates];
+                var relatedTemplatesIds = relatedTemplates.TargetIDs.Select(x => x.Guid);
 
-                    IEnumerable<Guid> tags = discoveryProvider.GetRelatedItems(args.ContentItem.ID.Guid, relatedTemplatesIds);
-                    relatedItemsList.AddRange(tags);
-                }
-                catch (Exception ex)
+                IEnumerable<Guid> tags = discoveryProvider.GetRelatedItems(args.ContentItem.ID.Guid, relatedTemplatesIds);
+                relatedItemsList.AddRange(tags);
+            }
+            catch (Exception ex)
+            {
+
+                string message = "An error occured in " + discoveryProvider.GetType().Name + " provider";
+                MessageBus messageBus = args.MessageBus;
+                messageBus?.SendMessage(new Message
                 {
-                    
-                    string message = "An error occured in " + discoveryProvider.GetType().Name + " provider";
-                    MessageBus messageBus = args.MessageBus;
-                    messageBus?.SendMessage(new Message
-                    {
-                        Body = message,
-                        Level = MessageLevel.Error
-                    });
-                    Log.Error(message, ex, this);
-                }
+                    Body = message,
+                    Level = MessageLevel.Error
+                });
+                Log.Error(message, ex, this);
             }
             args.RelatedItems = relatedItemsList;
         }

@@ -25,7 +25,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
                 return CommandState.Disabled;
             var configurationArgs = new GetRelatedContentTaggingConfigurationArgs();
             this.PipelineManager.Run("getRelatedTaggingConfiguration", configurationArgs, "RealtedContentTagging");
-            bool flag1 = configurationArgs.ProvidersSet.DiscoveryProviders.Any();
+            bool flag1 = configurationArgs.ProvidersSet.DiscoveryProvider!=null;
             bool flag2 = configurationArgs.ProvidersSet.ContentProviders.Any();
             bool flag3 = configurationArgs.ProvidersSet.Taggers.Any();
             return this.CheckLocking(item, user) & flag2 & flag1 & flag3 ? CommandState.Enabled : CommandState.Disabled;
