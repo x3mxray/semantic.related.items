@@ -17,7 +17,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.Norma
         protected virtual string DeleteStopWords(string text)
         {
             text = text.Trim().ToLower();
-            var punctuation = text.Where(char.IsPunctuation).Distinct().ToArray().Append(' ').ToArray();
+            var punctuation = text.Where(char.IsPunctuation).Distinct().ToArray().Append(' ').Append('\u0009').ToArray();
 
             var res = text.Split(punctuation, StringSplitOptions.RemoveEmptyEntries).ToArray();
             var cleanWords = res.Except(StopWords.stopWordsList).Where(x=> x.Length > 2).ToArray();
