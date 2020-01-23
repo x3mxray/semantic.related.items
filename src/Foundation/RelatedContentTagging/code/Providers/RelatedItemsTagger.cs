@@ -14,6 +14,8 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
         {
             MultilistField field = contentItem.Fields[Constants.Fields.RetatedItems];
             contentItem.Editing.BeginEdit();
+
+            field.Value = "";
             foreach (Guid tag in related)
             {
                 if (ID.TryParse(tag, out var result) && !field.TargetIDs.Contains(result))

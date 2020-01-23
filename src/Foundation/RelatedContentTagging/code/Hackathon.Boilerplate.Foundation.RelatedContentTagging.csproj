@@ -147,6 +147,7 @@
     <Compile Include="Pipelines\TagContent\RetrieveContent.cs" />
     <Compile Include="Pipelines\TagContent\Vectorize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ButtonStateProvider.cs" />
     <Compile Include="Providers\GetRelatedContentTaggingConfigurationArgs.cs" />
     <Compile Include="Providers\RelatedItemsDiscoveryProvider.cs" />
     <Compile Include="Providers\RelatedContentTaggingProviderFactory.cs" />

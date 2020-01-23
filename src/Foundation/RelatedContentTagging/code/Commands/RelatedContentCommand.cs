@@ -37,7 +37,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
         public IMessageBusFactory MessageBusFactory { get; set; }
 
         /// <summary>ButtonStateProvider</summary>
-        public IButtonStateProvider ButtonStateProvider { get; set; }
+        public Providers.IButtonStateProvider ButtonStateProvider { get; set; }
 
         /// <summary>Constructor</summary>
         public RelatedContentCommand()
@@ -45,7 +45,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
             this.ContentTaggingRunner = ServiceLocator.ServiceProvider.GetService<IRelatedContentTaggingRunner>();
             this.MessageBusFactory = ServiceLocator.ServiceProvider.GetService<IMessageBusFactory>();
             this.PipelineManager = ServiceLocator.ServiceProvider.GetService<BaseCorePipelineManager>();
-            this.ButtonStateProvider = ServiceLocator.ServiceProvider.GetService<IButtonStateProvider>();
+            this.ButtonStateProvider = ServiceLocator.ServiceProvider.GetService<Providers.IButtonStateProvider>();
         }
 
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
         public override CommandState QueryState(CommandContext context)
         {
             Item obj;
-            if ((obj = context.Items.FirstOrDefault<Item>()) != null)
+            if ((obj = context.Items.FirstOrDefault()) != null)
                 return this.ButtonStateProvider.GetButtonStateForUser(obj, Context.User);
             return CommandState.Disabled;
         }
