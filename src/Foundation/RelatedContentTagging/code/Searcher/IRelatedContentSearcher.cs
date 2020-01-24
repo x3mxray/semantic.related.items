@@ -9,6 +9,6 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Searcher
     {
         ContentObject GetCurrentItemFromSolr(Guid itemId);
 
-        IEnumerable<ContentObject> GetItemsByRelatedTemplates(IEnumerable<Guid> relatedTemplates);
+        IEnumerable<ContentObject> GetItemsByRelatedTemplates(Guid itemId, IEnumerable<Guid> relatedTemplates);
     }
 }

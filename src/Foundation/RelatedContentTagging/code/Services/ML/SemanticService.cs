@@ -33,12 +33,12 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
             if (current.TextVector == null)
                 return null;
 
-            var list = this.contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
+            var list = this.contentSearcher.GetItemsByRelatedTemplates(itemId, relatedTemplates);
 
             if (list == null || !list.Any())
                 return null;
 
-            var related = Content2Vec.NearestItems(current.TextVector, list.Where(x => x.Id!=itemId).ToList());
+            var related = Content2Vec.NearestItems(current.TextVector, list.ToList());
 
             return related;
         }
