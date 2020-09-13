@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hackathon.Boilerplate.Foundation.BusinessValueTracker")]
+[assembly: AssemblyTitle("Semantic.Foundation.RelatedContentTagging")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Brimit")]
-[assembly: AssemblyProduct("Hackathon.Boilerplate.Foundation.BusinessValueTracker")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Semantic.Foundation.RelatedContentTagging")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

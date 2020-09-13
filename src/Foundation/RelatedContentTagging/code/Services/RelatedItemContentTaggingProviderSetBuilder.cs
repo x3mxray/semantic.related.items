@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.ContentTagging.Configuration;
 using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Data.Items;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
+namespace Semantic.Foundation.RelatedContentTagging.Services
 {
     public class RelatedItemContentTaggingProviderSetBuilder : IRelatedItemContentTaggingProviderSetBuilder
     {

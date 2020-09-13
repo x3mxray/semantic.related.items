@@ -1,7 +1,7 @@
 ﻿using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Pipelines;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
+namespace Semantic.Foundation.RelatedContentTagging.Providers
 {
 
     public class GetRelatedContentTaggingConfigurationArgs : PipelineArgs

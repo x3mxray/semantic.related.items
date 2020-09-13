@@ -1,1 +1,0 @@
-﻿dotnet Hackathon.Boilerplate.Project.ConsoleGenerator.dll --import interactions.csv

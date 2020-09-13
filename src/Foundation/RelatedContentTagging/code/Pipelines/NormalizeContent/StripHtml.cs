@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using System.Web;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
 using HtmlAgilityPack;
+using Semantic.Foundation.RelatedContentTagging.Models;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
 {
     public class StripHtml
     {

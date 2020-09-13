@@ -1,17 +1,23 @@
-﻿using Sitecore.ContentTagging.Core.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Semantic.Foundation.RelatedContentTagging.Models;
+using Sitecore.ContentTagging.Core.Messaging;
+using Sitecore.ContentTagging.Core.Models;
 using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Data.Items;
-using System.Collections.Generic;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
-using Sitecore.ContentTagging.Core.Messaging;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class RetrieveContent
     {
         public void Process(RelatedContentTagArgs args)
         {
             var taggableContentList = new List<RelatedTaggableContent>();
+            if (args.Content != null && args.Content.Any())
+            {
+                taggableContentList.AddRange(args.Content);
+            }
+
             foreach (IContentProvider<Item> contentProvider in args.Configuration.ContentProviders)
             {
                 var content = (StringContent) contentProvider.GetContent(args.ContentItem);

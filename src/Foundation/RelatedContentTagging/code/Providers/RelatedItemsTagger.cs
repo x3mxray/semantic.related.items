@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
-using System.Linq;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
+namespace Semantic.Foundation.RelatedContentTagging.Providers
 {
     public class RelatedItemsTagger : MessageSource, IRelatedItemsTagger<Item>
     {

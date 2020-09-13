@@ -1,4 +1,4 @@
-﻿namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
+﻿namespace Semantic.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
 {
     public static class StopWords
     {

@@ -2,7 +2,7 @@
 using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Data.Items;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
+namespace Semantic.Foundation.RelatedContentTagging.Providers
 {
     public class RelatedItemContentTaggingProvidersSet 
     {

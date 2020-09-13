@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hackathon.Boilerplate.Foundation.ML
+namespace Semantic.Foundation.ML
 {
     public class ContentObject
     {

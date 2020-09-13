@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Hosting;
 using Word2vec.Tools;
 
-namespace Hackathon.Boilerplate.Foundation.ML
+namespace Semantic.Foundation.ML
 {
     public static class Content2Vec
     {
@@ -29,6 +29,7 @@ namespace Hackathon.Boilerplate.Foundation.ML
 
             int inVocabularyCount = 0;
 
+            // vector = VocabularyModel.GetSummRepresentationOrNullForPhrase(words).NumericVector;
             foreach (string word in words)
             {
                 try
@@ -52,23 +53,11 @@ namespace Hackathon.Boilerplate.Foundation.ML
             {
                 vector[i] /= inVocabularyCount;
             }
-
+            
             return vector;
         }
 
-        public static IEnumerable<ContentObject> Nearest(ContentObject primary, List<ContentObject> other)
-        {
-            List<ContentObject> calculatedVectors = new List<ContentObject>();
-            foreach (var o in other)
-            {
-                o.Distance = CosineDistance(primary.TextVector, o.TextVector);
-                calculatedVectors.Add(o);
-            }
-
-            return calculatedVectors.OrderBy(x => x.Distance).Take(5);
-        }
-
-        public static IEnumerable<Guid> NearestItems(float[] primaryVector, List<ContentObject> other)
+        public static IEnumerable<Guid> NearestItems(float[] primaryVector, List<ContentObject> other, int similarity)
         {
             List<ContentObject> calculatedVectors = new List<ContentObject>();
             foreach (var o in other)
@@ -77,7 +66,11 @@ namespace Hackathon.Boilerplate.Foundation.ML
                 calculatedVectors.Add(o);
             }
 
-            return calculatedVectors.OrderBy(x => x.Distance).Take(5).Select(x => x.Id);
+            var results = calculatedVectors.OrderBy(x => x.Distance).Take(5);
+            if(similarity==0)
+                return results.Select(x => x.Id);
+
+            return results.Where(x => (1-x.Distance)*100 > similarity).Select(x => x.Id);
         }
 
         static float CosineDistance(float[] x, float[] y)

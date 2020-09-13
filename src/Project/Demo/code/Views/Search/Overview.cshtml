@@ -1,0 +1,46 @@
+﻿@model Semantic.Project.Demo.Models.OverviwModel
+
+@{
+    Layout = null;
+    if (Model == null)
+    {
+        return;
+    }
+}
+<div class="text-center">
+    <h1>Meetup Demo</h1>
+</div>
+<ul>
+    <li>
+        Products
+        <ul>
+            @foreach (var p in Model.Products)
+            {
+                <li><a href="@p.Url">@p.Title</a></li>
+            }
+        </ul>
+    </li>
+    <li>
+        News
+        <ul>
+            @foreach (var p in Model.News)
+            {
+                <li><a href="@p.Url">@p.Title</a></li>
+            }
+        </ul>
+    </li>
+    <li>
+        Articles
+        <ul>
+            @foreach (var p in Model.Articles)
+            {
+                <li><a href="@p.Url">@p.Title</a></li>
+            }
+        </ul>
+    </li>
+</ul>
+
+
+
+
+

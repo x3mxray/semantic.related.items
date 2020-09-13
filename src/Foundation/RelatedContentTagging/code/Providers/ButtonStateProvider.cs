@@ -5,7 +5,7 @@ using Sitecore.Data.Items;
 using Sitecore.Security.Accounts;
 using Sitecore.Shell.Framework.Commands;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
+namespace Semantic.Foundation.RelatedContentTagging.Providers
 {
     public class ButtonStateProvider : IButtonStateProvider
     {

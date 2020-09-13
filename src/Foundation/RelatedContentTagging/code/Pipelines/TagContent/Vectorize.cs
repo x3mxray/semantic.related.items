@@ -1,10 +1,10 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using System;
+using System.Linq;
+using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Diagnostics;
-using System;
-using System.Linq;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class Vectorize
     {

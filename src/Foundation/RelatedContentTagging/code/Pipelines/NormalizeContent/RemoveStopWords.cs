@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
+using Semantic.Foundation.RelatedContentTagging.Models;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.NormalizeContent
 {
     public class RemoveStopWords
     {

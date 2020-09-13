@@ -1,11 +1,11 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
-using Sitecore.ContentTagging.Core.Messaging;
-using Sitecore.Diagnostics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Semantic.Foundation.RelatedContentTagging.Providers;
+using Sitecore.ContentTagging.Core.Messaging;
+using Sitecore.Diagnostics;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class GetRelatedItems
     {
@@ -17,10 +17,10 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
             {
                 Sitecore.Data.Fields.MultilistField relatedTemplates = args.ContentItem.Fields[Constants.Fields.RetatedTemplates];
                 var relatedTemplatesIds = relatedTemplates.TargetIDs.Select(x => x.Guid);
+                int.TryParse(args.ContentItem.Fields[Constants.Fields.Similarity].Value, out var similarity);
+                IEnumerable<Guid> items = discoveryProvider.GetRelatedItems(args.ContentItem.ID.Guid, relatedTemplatesIds, similarity);
 
-                IEnumerable<Guid> tags = discoveryProvider.GetRelatedItems(args.ContentItem.ID.Guid, relatedTemplatesIds);
-
-                if (tags == null || !tags.Any())
+                if (items == null || !items.Any())
                 {
                     var message = $"No related items find for {args.ContentItem.Name}";
                     MessageBus messageBus = args.MessageBus;
@@ -33,7 +33,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
                     args.AbortPipeline();
                 }
                 else 
-                    relatedItemsList.AddRange(tags);
+                    relatedItemsList.AddRange(items);
             }
             catch (Exception ex)
             {

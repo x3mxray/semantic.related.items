@@ -1,4 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
+using Semantic.Foundation.RelatedContentTagging.Extentions;
+using Semantic.Foundation.RelatedContentTagging.Services;
+using Sitecore;
 using Sitecore.Abstractions;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.ContentTagging.Jobs;
@@ -10,19 +19,10 @@ using Sitecore.SecurityModel;
 using Sitecore.Shell.Applications.Dialogs.ProgressBoxes;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Web.UI.Sheer;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Extentions;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
-using Sitecore;
-using Sitecore.ContentTagging;
+using IButtonStateProvider = Semantic.Foundation.RelatedContentTagging.Providers.IButtonStateProvider;
 using Message = Sitecore.ContentTagging.Core.Messaging.Message;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
+namespace Semantic.Foundation.RelatedContentTagging.Commands
 {
     public class RelatedContentCommand : Command
     {
@@ -37,7 +37,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
         public IMessageBusFactory MessageBusFactory { get; set; }
 
         /// <summary>ButtonStateProvider</summary>
-        public Providers.IButtonStateProvider ButtonStateProvider { get; set; }
+        public IButtonStateProvider ButtonStateProvider { get; set; }
 
         /// <summary>Constructor</summary>
         public RelatedContentCommand()
@@ -45,7 +45,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Commands
             this.ContentTaggingRunner = ServiceLocator.ServiceProvider.GetService<IRelatedContentTaggingRunner>();
             this.MessageBusFactory = ServiceLocator.ServiceProvider.GetService<IMessageBusFactory>();
             this.PipelineManager = ServiceLocator.ServiceProvider.GetService<BaseCorePipelineManager>();
-            this.ButtonStateProvider = ServiceLocator.ServiceProvider.GetService<Providers.IButtonStateProvider>();
+            this.ButtonStateProvider = ServiceLocator.ServiceProvider.GetService<IButtonStateProvider>();
         }
 
         /// <inheritdoc />

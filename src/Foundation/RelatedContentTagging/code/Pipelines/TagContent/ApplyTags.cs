@@ -1,7 +1,7 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.Data.Items;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class ApplyTags
     {

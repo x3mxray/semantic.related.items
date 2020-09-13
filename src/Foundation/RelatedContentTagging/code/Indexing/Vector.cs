@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent;
+using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.Abstractions;
 using Sitecore.ContentSearch;
 using Sitecore.ContentSearch.ComputedFields;
@@ -9,7 +8,7 @@ using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Data.Items;
 using Sitecore.DependencyInjection;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Indexing
+namespace Semantic.Foundation.RelatedContentTagging.Indexing
 {
     public class Vector : IComputedIndexField
     {

@@ -1,7 +1,7 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
+﻿using Semantic.Foundation.RelatedContentTagging.Providers;
+using Semantic.Foundation.RelatedContentTagging.Services;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines
 {
     public class BuildConfiguration
     {

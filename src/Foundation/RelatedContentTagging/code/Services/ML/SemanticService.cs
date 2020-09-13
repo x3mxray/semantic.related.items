@@ -1,13 +1,11 @@
-﻿using Hackathon.Boilerplate.Foundation.ML;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sitecore.Buckets.Extensions;
+using Semantic.Foundation.ML;
+using Semantic.Foundation.RelatedContentTagging.Searcher;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
+namespace Semantic.Foundation.RelatedContentTagging.Services.ML
 {
-    using Searcher;
-
     public class SemanticService : ISemanticService
     {
         protected IRelatedContentSearcher contentSearcher;
@@ -24,29 +22,39 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services.ML
             return vector;
         }
 
-        public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates)
+        public IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates, int similarity)
         {
             if (relatedTemplates == null || !relatedTemplates.Any())
                 return null;
 
-            var current = this.contentSearcher.GetCurrentItemFromSolr(itemId);
-            if (current.TextVector == null)
+            var current = contentSearcher.GetCurrentItemFromSolr(itemId);
+            if (current?.TextVector == null)
                 return null;
 
-            var list = this.contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
+            var list = contentSearcher.GetItemsByRelatedTemplates(relatedTemplates);
 
             if (list == null || !list.Any())
                 return null;
 
-            var related = Content2Vec.NearestItems(current.TextVector, list.Where(x => x.Id!=itemId).ToList());
+            var related = Content2Vec.NearestItems(current.TextVector, list.Where(x => x.Id!=itemId).ToList(), similarity);
 
             return related;
+        }
+
+        public IEnumerable<Guid> Search(string text, int? similarity)
+        {
+            var vector = Vectorize(text.ToLower());
+            var texts = contentSearcher.GetAll();
+            var results = Content2Vec.NearestItems(vector, texts.ToList(), similarity ?? 0);
+
+            return results;
         }
     }
 
     public interface ISemanticService
     {
         float[] Vectorize(string content);
-        IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates);
+        IEnumerable<Guid> GetRelated(Guid itemId, IEnumerable<Guid> relatedTemplates, int similarity);
+        IEnumerable<Guid>  Search(string text, int? similarity);
     }
 }

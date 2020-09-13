@@ -1,10 +1,10 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent;
+using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.Abstractions;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Data.Items;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
+namespace Semantic.Foundation.RelatedContentTagging.Services
 {
     public class RelatedContentTaggingRunner : IRelatedContentTaggingRunner
     {

@@ -1,16 +1,15 @@
-﻿using Hackathon.Boilerplate.Foundation.ML;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Semantic.Foundation.ML;
+using Semantic.Foundation.RelatedContentTagging.Searcher.SearchResultItem;
+using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Linq;
+using Sitecore.ContentSearch.Linq.Utilities;
+using Sitecore.Data;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Searcher
+namespace Semantic.Foundation.RelatedContentTagging.Searcher
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using SearchResultItem;
-    using Sitecore.ContentSearch;
-    using Sitecore.ContentSearch.Linq;
-    using Sitecore.ContentSearch.Linq.Utilities;
-    using Sitecore.Data;
-
     public class RelatedContentSearcher : IRelatedContentSearcher
     {
         protected string IndexName => Sitecore.Configuration.Settings.GetSetting("RelatedContentIndexName");
@@ -29,6 +28,27 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Searcher
                     .GetResults()?.FirstOrDefault()?.Document;
                     
                 return result==null ? null : new ContentObject{Id = result.ItemId.Guid, TextVector = result.Vectors?.ToArray()} ;
+            }
+        }
+
+        public IEnumerable<ContentObject> GetAll()
+        {
+            var index = ContentSearchManager.GetIndex(this.IndexName);
+            using (var context = index.CreateSearchContext())
+            {
+                var query = context.GetQueryable<ItemWithVectorResultItem>();
+                var results = query
+                    .Select(x => new { x.ItemId, x.Vectors })
+                    .GetResults()
+                    .Select(x => x.Document)
+                    .Where(x => x != null && x.Vectors != null)
+                    .Select(x => new ContentObject
+                    {
+                        Id = x.ItemId.ToGuid(),
+                        TextVector = x.Vectors.ToArray()
+                    });
+
+                return results;
             }
         }
 

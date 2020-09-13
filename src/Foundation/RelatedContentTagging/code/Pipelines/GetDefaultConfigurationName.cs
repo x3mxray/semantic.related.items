@@ -1,7 +1,7 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
+﻿using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.Abstractions;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines
 {
     public class GetDefaultConfigurationName
     {

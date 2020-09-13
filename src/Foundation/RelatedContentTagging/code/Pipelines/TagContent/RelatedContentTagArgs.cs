@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using Semantic.Foundation.RelatedContentTagging.Models;
+using Semantic.Foundation.RelatedContentTagging.Providers;
 using Sitecore.ContentTagging.Core.Messaging;
 using Sitecore.Data.Items;
 using Sitecore.Pipelines;
-using System.Collections.Generic;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class RelatedContentTagArgs : PipelineArgs
     {

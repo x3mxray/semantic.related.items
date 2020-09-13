@@ -1,9 +1,9 @@
 ﻿using System;
-using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services;
+using Semantic.Foundation.RelatedContentTagging.Services;
 using Sitecore.ContentTagging.Core.Providers;
 using Sitecore.Reflection;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Providers
+namespace Semantic.Foundation.RelatedContentTagging.Providers
 {
     public class RelatedContentTaggingProviderFactory :  IRelatedContentTaggingProviderFactory
     {

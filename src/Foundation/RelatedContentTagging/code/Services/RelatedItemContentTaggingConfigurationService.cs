@@ -5,7 +5,7 @@ using Sitecore.Abstractions;
 using Sitecore.ContentTagging.Configuration;
 using Sitecore.Xml;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Services
+namespace Semantic.Foundation.RelatedContentTagging.Services
 {
     public class RelatedItemContentTaggingConfigurationService : IRelatedItemContentTaggingConfigurationService
     {

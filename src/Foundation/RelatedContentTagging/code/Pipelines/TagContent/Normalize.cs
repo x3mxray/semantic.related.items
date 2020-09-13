@@ -1,12 +1,13 @@
-﻿using Hackathon.Boilerplate.Foundation.RelatedContentTagging.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Sitecore.Abstractions;
-using Sitecore.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Semantic.Foundation.RelatedContentTagging.Models;
+using Semantic.Foundation.RelatedContentTagging.Pipelines.NormalizeContent;
+using Sitecore.Abstractions;
 using Sitecore.ContentTagging.Core.Messaging;
+using Sitecore.DependencyInjection;
 
-namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagContent
+namespace Semantic.Foundation.RelatedContentTagging.Pipelines.TagContent
 {
     public class Normalize
     {
@@ -15,7 +16,7 @@ namespace Hackathon.Boilerplate.Foundation.RelatedContentTagging.Pipelines.TagCo
 
         public void Process(RelatedContentTagArgs args)
         {
-            NormalizeContent.NormalizeContentArgs normalizeContentArgs = new NormalizeContent.NormalizeContentArgs
+            NormalizeContentArgs normalizeContentArgs = new NormalizeContentArgs
             {
                 Content = args.Content,
                 MessageBus = args.MessageBus
