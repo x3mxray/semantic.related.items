@@ -3,7 +3,7 @@
 
 This module allows you automatically find related items that have simiral semantic content.
 
-Solution is based on NLP, wodr2vec algorithm.
+Solution is based on NLP, word2vec algorithm.
 
 If you want to know how it works more detailed, you can see [this video](https://www.youtube.com/watch?v=XC2tgfUwuWA&ab_channel=SUGBelarus).
 
@@ -27,7 +27,7 @@ If you create new one, add new dynamic field for floats in **managed-schema** of
 
 ## Settings and configuration
 - App_Config\Include\Foundation\Foundation.RelatedContentTagging.Indexing.config:
-  - Change index configuration for templates that you want to use in reladet items:
+  - Change index configuration for templates that you want to use in related items:
   ```
   <include hint="list:AddIncludedTemplate">
                             <Article>{DFA6299F-86E5-45E3-A2FD-91DB981B74AA}</Article>
@@ -44,6 +44,8 @@ If you create new one, add new dynamic field for floats in **managed-schema** of
   ```
   <setting name="RelatedContentIndexName" value="sitecore_related_content_index"/>
   ```
+
+
 
 # Feedback #
 If you are faced with any issues or have questions/suggestions you can contact me in sitecore slack channel @x3mxray.
