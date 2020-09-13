@@ -1,39 +1,49 @@
-![Hackathon Logo](documentation/images/hackathon.png?raw=true "Hackathon Logo")
+# Sitecore Cortex: Related items Module 
+![Related items](documentation/images/1.jpg?raw=true "Related items")
 
-# Submission Boilerplate 
+This module allows you automatically find related items that have simiral semantic content.
 
-Welcome to Sitecore Hackathon 2019.
+Solution is based on NLP, wodr2vec algorithm.
 
-The Hackathon site can be found at http://www.sitecorehackathon.org/sitecore-hackathon-2019/
+If you want to know how it works more detailed, you can see [this video](https://www.youtube.com/watch?v=XC2tgfUwuWA&ab_channel=SUGBelarus).
 
-The purpose of this repository is to provide a sample which shows how to structure the Hackathon submissions.
+## Pre-requisites
+Sitecore 9.1.0  and higher.
+
+## Installation
+
+- Install the sitecore package [RelatedItems-1.0.zip](https://github.com/x3mxray/semantic.related.items/blob/master/install/RelatedItems-1.0.zip)
+
+- Copy [GoogleNews.bin](https://github.com/x3mxray/semantic.related.items/blob/master/install/GoogleNews.bin) dataset to App_Data folder. If you want to use other vectorized datasets, you can find them in internet (for example [here](https://fasttext.cc/docs/en/english-vectors.html)).
+
+- Create new core "sitecore_related_content_index" in Solr (or copy existing empty from here: [sitecore_related_content_index](https://github.com/x3mxray/semantic.related.items/blob/master/install/sitecore_related_content_index.zip)).
+If you create new one, add new dynamic field for floats in **managed-schema** of your solr core:
+```
+<dynamicField name="*_fs" type="pfloat" multiValued="true" indexed="true" stored="true"/>
+```
+
+- If you need my demo content fot tesing, install package [test_content.zip](https://github.com/x3mxray/semantic.related.items/blob/master/install/test_content.zip).
 
 
-## Entry Submission Requirements 
+## Settings and configuration
+- App_Config\Include\Foundation\Foundation.RelatedContentTagging.Indexing.config:
+  - Change index configuration for templates that you want to use in reladet items:
+  ```
+  <include hint="list:AddIncludedTemplate">
+                            <Article>{DFA6299F-86E5-45E3-A2FD-91DB981B74AA}</Article>
+                            <News>{88B0538E-3BE7-4F62-A810-84F94ACE36B3}</News>
+                            <Product>{B8C3024A-379D-4DB6-A837-127F175C98E0}</Product>
+  </include>
+  ```
+- App_Config\Include\Foundation\Foundation.RelatedContentTagging.config:
+  - Path to vectorized dataset model:
+  ```
+  <setting name="SemanticDatasetFilePath" value="App_Data\GoogleNews.bin" />
+  ```
+  - Search index name (default is **sitecore_related_content_index**):
+  ```
+  <setting name="RelatedContentIndexName" value="sitecore_related_content_index"/>
+  ```
 
-All teams are required to submit the following as part of their entry submission on or before the end of the Hackathon on **Friday March 1st 2019 at 8PM EST**. The modules should be based on [Sitecore 9.1 (Initial Release)](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/91/Sitecore_Experience_Platform_91_Initial_Release.aspx).
-
-**Failure to meet any of the requirements will result in automatic disqualification.** Please reach out to any of the organisers or judges if you require any clarification.
-
-- Sitecore 9.1 (Initial Release) Module (Module install package)
-   - An installation Sitecore Package (`.zip` or `.update`)
-
-- Module code in a public Git source repository. We will be judging (amongst other things):
-  - Cleanliness of code
-  - Commenting where necessary
-  - Code Structure
-  - Standard coding standards & naming conventions
-
-- Precise and Clear Installation Instructions document (1 – 2 pages)
-- Module usage documentation on [Readme.md](documentation) file on the Git Repository (2 – 5 pages)
-  - Module Purpose
-  - Module Sitecore Hackathon Category
-  - How does the end user use the Module?
-  - Screenshots, etc.
-
-- Create a 2 – 10 minutes video explaining the module’s functionality (A link to youtube video)
-
-  - What problem was solved
-  - How did you solve it
-  - What is the end result
-
+# Feedback #
+If you are faced with any issues or have questions/suggestions you can contact me in sitecore slack channel @x3mxray.
