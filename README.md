@@ -27,22 +27,22 @@ If you create new one, add new dynamic field for floats in **managed-schema** of
 
 ## Usage
 
-- A new template **"Related Content Tagging"**  appear after package installation  (/sitecore/templates/Foundation/Related Content Tagging)
+- A new template **"Related Content Tagging"**  appear after package installation  *(/sitecore/templates/Foundation/Related Content Tagging)*.
 
-- Inherit templates that you want to use for retaled items tagging from **"Related Content Tagging"** template
+- Inherit templates that you want to use for related items tagging from **"Related Content Tagging"** template:
 ![Base templates](documentation/images/2.jpg?raw=true "Base templates")
 
-- For each template (that you want to use for retaled items tagging) assign corresponding related templates (templates where you want to find related items) in **Related templates** field of **Tagging** section
+- For each template (that you want to use for retaled items tagging) assign corresponding related templates (templates where you want to find related items) in **"Related templates"** field of **Tagging** section:
  ![Related templates](documentation/images/3.jpg?raw=true "Related templates")
 
-- Rebuild **sitecore_related_content_index** (it is needed only for first time installation to index alredy existing content)
+- Rebuild **sitecore_related_content_index** *(it is needed only for first time installation to index alredy existing content)*.
 
-- Select item in sitecore tree and click **Related for item** or **Related for item and subitems** in ribbon menu to find related items.
-Selected item (and optionally subitems) will populated with related items in **Related items** field.
-Found related items in **Related items** field are automatically ordered by semantic similarity.
+- Select item in sitecore tree and click **"Related for item"** or **"Related for item and subitems"** option in ribbon menu to find related items.
+Selected item (and optionally subitems) will populated with related items in **"Related items"** field.
+Found related items in **"Related items"** field are automatically ordered by semantic similarity.
 
-- OPTIONAL: If you need to have only "really" similar related items in **Related items** field, you can specify **Minimum similarity** field in range from 0 to 100 (percent of similarity). 
-**Minimum similarity** field is optional. Recommended value for minimum similarity is ~80. 
+- OPTIONAL: If you need to have only "really" similar related items in **"Related items"** field, you can specify **"Minimum similarity"** field in range from 0 to 100 (percent of similarity). 
+**"Minimum similarity"** field is optional. Recommended value for minimum similarity is ~80. 
 For better understanding how percentage of text similarity is working you can test [by this online tool](https://dandelion.eu/semantic-text/text-similarity-demo/?text1=Cameron+wins+the+Oscar&text2=All+nominees+for+the+Academy+Awards&lang=auto&exec=true)
 
 ## Settings and configuration
