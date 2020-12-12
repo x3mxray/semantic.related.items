@@ -9,7 +9,7 @@ Solution is based on NLP, word2vec algorithm.
 If you want to know how it works more detailed, you can see [this video](https://www.youtube.com/watch?v=XC2tgfUwuWA&ab_channel=SUGBelarus) and/or [this article](https://www.brimit.com/blog/cortex-related-semantic-items).
 
 ## Pre-requisites
-Sitecore 9.1.0  and higher.
+Sitecore 9.1.0  and higher *(also successfully tested on Sitecore 10.0.0)*.
 
 ## Installation
 
@@ -17,11 +17,14 @@ Sitecore 9.1.0  and higher.
 
 - Copy [GoogleNews.bin](https://github.com/x3mxray/semantic.related.items/blob/master/install/GoogleNews.bin) dataset to App_Data folder. If you want to use other vectorized datasets, you can find them in internet (for example [here](https://fasttext.cc/docs/en/english-vectors.html)).
 
-- Create new core **"sitecore_related_content_index"** in Solr (or copy existing empty from here: [sitecore_related_content_index](https://github.com/x3mxray/semantic.related.items/blob/master/install/sitecore_related_content_index.zip)).
-If you create new one, add new dynamic field for floats in **managed-schema** of your solr core:
+- Create new core **"sitecore_related_content_index"** in Solr.
+Add new dynamic field for floats in **managed-schema** of your solr core:
 ```
 <dynamicField name="*_fs" type="pfloat" multiValued="true" indexed="true" stored="true"/>
 ```
+*OPTIONAL (for Sitecore 9 versions)*: you can copy existing empty index from here: [sitecore_related_content_index](https://github.com/x3mxray/semantic.related.items/blob/master/install/sitecore_related_content_index.zip)). 
+If you use **Sitecore 10** and copy this existing index, you can faced an Solr error **"unknown field __boost"** *(for example when you try to rebuild this index)*. It is fixed by running **"Populate Solr Managed Schema"** in sitecore, adding `<dynamicField name="*_fs" type="pfloat" multiValued="true" indexed="true" stored="true"/>` in **managed-schema** of index and restart Sorl service.
+
 
 - If you need my demo content for tesing, install package [test_content.zip](https://github.com/x3mxray/semantic.related.items/blob/master/install/test_content.zip).
 
