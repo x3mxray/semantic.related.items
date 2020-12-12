@@ -44,6 +44,8 @@ Found related items in **"Related items"** field are automatically ordered by se
 - OPTIONAL: If you need to have only "really" similar related items in **"Related items"** field, you can specify **"Minimum similarity"** field in range from 0 to 100 (percent of similarity). 
 **"Minimum similarity"** field is optional. Recommended value for minimum similarity is ~80. 
 For better understanding how percentage of text similarity is working you can test [by this online tool](https://dandelion.eu/semantic-text/text-similarity-demo/?text1=Cameron+wins+the+Oscar&text2=All+nominees+for+the+Academy+Awards&lang=auto&exec=true)
+ ![Minimum similarity](documentation/images/4.jpg?raw=true "Minimum similarity")
+
 
 ## Settings and configuration
 - App_Config\Include\Foundation\Foundation.RelatedContentTagging.Indexing.config:
